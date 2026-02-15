@@ -28,17 +28,22 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] overflow-x-hidden">
+      {/* Debug info - remove after fixing */}
+      <div className="fixed bottom-4 right-4 z-50 bg-black text-white p-2 text-xs rounded opacity-50 hover:opacity-100">
+        <div>Images should be in: /public/images/</div>
+        <div>Files: picture6.png, picture7.png, Picture1.jpg, etc.</div>
+      </div>
+
       {/* Header - Fixed positioning to ensure it's always visible */}
       <header className="fixed top-0 left-0 right-0 z-[100] w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
-              {/* Logo image - Using Next.js Image component would be better, but for now added multiple fallback paths */}
+              {/* Logo image */}
               <ImageWithFallback
                 src="/images/Picture1.jpg"
                 alt="Rebel Echo Records Logo"
                 className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
-                fallbackSrc="/images/picture1.jpg"
               />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
@@ -97,7 +102,6 @@ export default function Page() {
                     src="/images/Picture3-removebg-preview.png"
                     alt="J'Soul Logo"
                     className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 object-contain filter drop-shadow-[0_0_15px_rgba(184,134,11,0.3)]"
-                    fallbackSrc="/images/picture3-removebg-preview.png"
                   />
                 </div>
               </div>
@@ -113,7 +117,7 @@ export default function Page() {
               </p>
             </div>
             
-            {/* Buttons - Stack on mobile, row on larger screens */}
+            {/* Buttons */}
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <button 
                 onClick={() => {
@@ -145,7 +149,7 @@ export default function Page() {
       {/* Features Section */}
       <section id="features" className="w-full py-12 sm:py-16 lg:py-20 bg-[#0A0A0A] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Label Overview - Now stacks on mobile, side by side on desktop */}
+          {/* Label Overview */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center mb-12 lg:mb-16">
             {/* Left side - Text Content */}
             <div className="order-2 lg:order-1">
@@ -184,7 +188,6 @@ export default function Page() {
                         src="/images/Picture2.png"
                         alt="J'Soul - Artist at Rebel Echo Records"
                         className="w-full h-full object-cover"
-                        fallbackSrc="/images/picture2.png"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-transparent to-transparent"></div>
                     </div>
@@ -194,7 +197,7 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Press Release Section - REDUCED BOTTOM MARGIN */}
+          {/* Press Release Section */}
           <div className="mb-8 lg:mb-12">
             <div className="bg-[#111111] border border-[#B8860B]/20 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10">
               <div className="text-center mb-6 sm:mb-8">
@@ -215,7 +218,7 @@ export default function Page() {
                   Blending Christian metal, poetic lyricism, rap influence, and emotionally grounded storytelling, Poetic Metal explores endurance in relationships, spiritual guidance through adversity, mental health recovery, and unwavering family bonds.
                 </p>
                 
-                {/* Grid - 1 column on mobile, 2 on larger screens */}
+                {/* Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-6 sm:my-8">
                   <div className="bg-[#0A0A0A] p-4 sm:p-5 rounded-xl border border-[#800080]/30">
                     <span className="block text-base sm:text-lg font-semibold text-[#B8860B] mb-2">"Enigma"</span>
@@ -243,7 +246,7 @@ export default function Page() {
               {/* Divider */}
               <div className="my-6 sm:my-8 border-t border-[#B8860B]/20"></div>
               
-              {/* AI & Innovation Section - Stack on mobile */}
+              {/* AI & Innovation Section */}
               <div className="space-y-4 sm:space-y-6">
                 {/* Suno Acknowledgment */}
                 <div className="bg-gradient-to-r from-[#800080]/10 to-transparent p-4 sm:p-6 rounded-xl">
@@ -291,7 +294,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Benefits Section - Judy Briggs Featured Tracks - REDUCED TOP PADDING */}
+      {/* Benefits Section - Judy Briggs Featured Tracks */}
       <section id="benefits" className="w-full py-8 sm:py-10 lg:py-12 bg-[#0A0A0A] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -304,7 +307,7 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Judy Briggs Tracks Grid - Responsive columns */}
+          {/* Judy Briggs Tracks Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4 sm:px-0">
             {tracks.map((track, index) => (
               <AudioCard key={index} track={track} index={index} />
@@ -344,64 +347,71 @@ export default function Page() {
 }
 
 /* =========================================================
-   🖼️ IMAGE COMPONENT WITH FALLBACK FOR VERCEl
+   🖼️ IMAGE COMPONENT WITH MULTIPLE FALLBACK PATHS
 ========================================================= */
 
-function ImageWithFallback({ 
-  src, 
-  alt, 
-  className, 
-  fallbackSrc 
-}: { 
-  src: string; 
-  alt: string; 
-  className?: string;
-  fallbackSrc?: string;
-}) {
+function ImageWithFallback({ src, alt, className }: { src: string; alt: string; className?: string }) {
   const [imgSrc, setImgSrc] = useState(src);
-  const [imageError, setImageError] = useState(false);
+  const [failedPaths, setFailedPaths] = useState<string[]>([]);
 
-  // Try multiple fallback paths if the main one fails
-  const tryAlternativePaths = () => {
-    // If we haven't tried the lowercase version yet
-    if (src.includes('/images/') && !src.includes('/images/picture')) {
-      const lowercaseVersion = src.toLowerCase();
-      setImgSrc(lowercaseVersion);
-    } 
-    // If we tried lowercase and it failed, try the provided fallback
-    else if (fallbackSrc && imgSrc !== fallbackSrc) {
-      setImgSrc(fallbackSrc);
+  // List of possible paths to try (in order)
+  const getPossiblePaths = (originalPath: string): string[] => {
+    const paths = [originalPath];
+    
+    // If it's in /images/ folder, try different case variations
+    if (originalPath.includes('/images/')) {
+      const filename = originalPath.split('/').pop() || '';
+      const folder = '/images/';
+      
+      // Try all lowercase
+      paths.push(folder + filename.toLowerCase());
+      
+      // Try all uppercase (first letter capital)
+      const capitalized = filename.charAt(0).toUpperCase() + filename.slice(1).toLowerCase();
+      paths.push(folder + capitalized);
+      
+      // Try original case but with different extensions
+      if (filename.endsWith('.png')) {
+        paths.push(folder + filename.replace('.png', '.jpg'));
+        paths.push(folder + filename.replace('.png', '.jpeg'));
+      } else if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) {
+        paths.push(folder + filename.replace(/\.jpe?g$/, '.png'));
+      }
     }
-    // If all else fails, use a data URL placeholder
-    else {
-      setImageError(true);
-    }
+    
+    return paths;
   };
 
-  if (imageError) {
-    // Return a colored div with a music note as ultimate fallback
-    return (
-      <div 
-        className={`${className} bg-gradient-to-br from-[#B8860B] to-[#800080] flex items-center justify-center`}
-        style={{ minWidth: '40px', minHeight: '40px' }}
-      >
-        <span className="text-white text-xl">🎵</span>
-      </div>
-    );
-  }
+  const possiblePaths = getPossiblePaths(src);
+
+  const handleError = () => {
+    const currentIndex = possiblePaths.indexOf(imgSrc);
+    const nextPath = possiblePaths[currentIndex + 1];
+    
+    if (nextPath) {
+      console.log(`Image failed: ${imgSrc}, trying: ${nextPath}`);
+      setImgSrc(nextPath);
+      setFailedPaths([...failedPaths, imgSrc]);
+    } else {
+      console.log(`All image paths failed for: ${src}`);
+      // Set to data URL with gradient as ultimate fallback
+      const color = src.includes('picture6') ? '800080' : 'B8860B';
+      setImgSrc(`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${color}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`);
+    }
+  };
 
   return (
     <img
       src={imgSrc}
       alt={alt}
       className={className}
-      onError={() => tryAlternativePaths()}
+      onError={handleError}
     />
   );
 }
 
 /* =========================================================
-   🎵 PROFESSIONAL AUDIO CARD COMPONENT - FULLY RESPONSIVE
+   🎵 PROFESSIONAL AUDIO CARD COMPONENT
 ========================================================= */
 
 function AudioCard({ track, index }: { track: Track; index: number }) {
@@ -442,7 +452,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
     };
   }, []);
 
-  // Stop all other tracks when this one plays
+  // Stop other tracks when this one plays
   useEffect(() => {
     const handleStopOtherTracks = (e: CustomEvent) => {
       if (e.detail.currentTrackIndex !== index && isPlaying) {
@@ -475,7 +485,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
       });
       window.dispatchEvent(event);
       
-      audio.play();
+      audio.play().catch(e => console.log('Playback failed:', e));
       setIsPlaying(true);
     }
   };
@@ -547,7 +557,6 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                   src={track.thumbnail}
                   alt={track.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
-                  fallbackSrc={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${index === 0 ? '800080' : 'B8860B'}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#B8860B] flex items-center justify-center">
@@ -566,7 +575,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                 {track.artist}
               </p>
 
-              {/* Progress Bar - Touch friendly */}
+              {/* Progress Bar */}
               <div
                 ref={progressRef}
                 onClick={handleSeek}
@@ -588,7 +597,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                 <span>{formatTime(duration)}</span>
               </div>
 
-              {/* Controls - Responsive sizing */}
+              {/* Controls */}
               <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center xs:justify-start">
                 <button
                   onClick={togglePlay}
@@ -614,7 +623,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                     {isMuted ? "🔇" : volume > 0.7 ? "🔊" : volume > 0.3 ? "🔉" : "🔈"}
                   </button>
                   
-                  {/* Volume Slider Popup - Responsive positioning */}
+                  {/* Volume Slider Popup */}
                   {showVolumeControl && (
                     <div 
                       className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-1.5 sm:p-2 bg-[#222222] rounded-lg border border-[#B8860B]/30 shadow-xl z-50"
