@@ -33,11 +33,14 @@ export default function Page() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
-              {/* Logo image */}
+              {/* Logo image - Fixed path with leading slash */}
               <img 
                 src="/images/Picture1.jpg" 
                 alt="Rebel Echo Records Logo"
                 className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
+                onError={(e) => {
+                  console.error('Failed to load image:', e.currentTarget.src);
+                }}
               />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
@@ -96,6 +99,9 @@ export default function Page() {
                     src="/images/Picture3-removebg-preview.png" 
                     alt="J'Soul Logo"
                     className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 object-contain filter drop-shadow-[0_0_15px_rgba(184,134,11,0.3)]"
+                    onError={(e) => {
+                      console.error('Failed to load image:', e.currentTarget.src);
+                    }}
                   />
                 </div>
               </div>
@@ -182,6 +188,9 @@ export default function Page() {
                         src="/images/Picture2.png" 
                         alt="J'Soul - Artist at Rebel Echo Records"
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          console.error('Failed to load image:', e.currentTarget.src);
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-transparent to-transparent"></div>
                     </div>
@@ -304,7 +313,7 @@ export default function Page() {
           {/* Judy Briggs Tracks Grid - Responsive columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4 sm:px-0">
             {tracks.map((track, index) => (
-              <AudioCard key={index} track={track} index={index} />
+              <AudioCard key={index} track={track} index={index} tracks={tracks} />
             ))}
           </div>
 
@@ -344,7 +353,7 @@ export default function Page() {
    🎵 PROFESSIONAL AUDIO CARD COMPONENT - FULLY RESPONSIVE
 ========================================================= */
 
-function AudioCard({ track, index }: { track: Track; index: number }) {
+function AudioCard({ track, index, tracks }: { track: Track; index: number; tracks: Track[] }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
@@ -354,6 +363,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
   const [current, setCurrent] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const formatTime = (time: number): string => {
     if (!time || isNaN(time)) return "0:00";
@@ -382,16 +392,47 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
     };
   }, []);
 
+  // Stop all other tracks when this one plays
+  const stopOtherTracks = () => {
+    // This function will be called from the parent component
+    // We'll use a custom event to communicate between audio cards
+    const event = new CustomEvent('stopOtherTracks', { 
+      detail: { currentTrackIndex: index } 
+    });
+    window.dispatchEvent(event);
+  };
+
+  useEffect(() => {
+    const handleStopOtherTracks = (e: CustomEvent) => {
+      if (e.detail.currentTrackIndex !== index && isPlaying) {
+        const audio = audioRef.current;
+        if (audio) {
+          audio.pause();
+          setIsPlaying(false);
+        }
+      }
+    };
+
+    window.addEventListener('stopOtherTracks' as any, handleStopOtherTracks);
+    
+    return () => {
+      window.removeEventListener('stopOtherTracks' as any, handleStopOtherTracks);
+    };
+  }, [index, isPlaying]);
+
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio) return;
     
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
     } else {
+      // Stop all other tracks first
+      stopOtherTracks();
       audio.play();
+      setIsPlaying(true);
     }
-    setIsPlaying(!isPlaying);
   };
 
   const stopAudio = () => {
@@ -433,6 +474,15 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
 
   const progressPercent = duration ? (current / duration) * 100 : 0;
 
+  // Fallback image for when the actual image fails to load
+  const getThumbnailSrc = () => {
+    if (imageError) {
+      // Return a placeholder with gradient based on index
+      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${index === 0 ? '800080' : 'B8860B'}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`;
+    }
+    return track.thumbnail;
+  };
+
   return (
     <div className="group relative">
       {/* Background gradient effect */}
@@ -458,9 +508,10 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
               <div className="absolute inset-0 bg-gradient-to-br from-[#B8860B] to-[#800080] rounded-xl blur-sm opacity-50"></div>
               <div className="relative w-full h-full rounded-xl overflow-hidden ring-2 ring-[#800080]/30">
                 <img
-                  src={track.thumbnail}
+                  src={getThumbnailSrc()}
                   alt={track.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
+                  onError={() => setImageError(true)}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#B8860B] flex items-center justify-center">
