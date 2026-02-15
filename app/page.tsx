@@ -33,14 +33,12 @@ export default function Page() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
-              {/* Logo image - Fixed path with leading slash */}
-              <img 
-                src="/images/Picture1.jpg" 
+              {/* Logo image - Using Next.js Image component would be better, but for now added multiple fallback paths */}
+              <ImageWithFallback
+                src="/images/Picture1.jpg"
                 alt="Rebel Echo Records Logo"
                 className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
-                onError={(e) => {
-                  console.error('Failed to load image:', e.currentTarget.src);
-                }}
+                fallbackSrc="/images/picture1.jpg"
               />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
@@ -95,13 +93,11 @@ export default function Page() {
             <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 mb-2">
               <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-16">
                 <div className="flex flex-col items-center">
-                  <img 
-                    src="/images/Picture3-removebg-preview.png" 
+                  <ImageWithFallback
+                    src="/images/Picture3-removebg-preview.png"
                     alt="J'Soul Logo"
                     className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 object-contain filter drop-shadow-[0_0_15px_rgba(184,134,11,0.3)]"
-                    onError={(e) => {
-                      console.error('Failed to load image:', e.currentTarget.src);
-                    }}
+                    fallbackSrc="/images/picture3-removebg-preview.png"
                   />
                 </div>
               </div>
@@ -184,13 +180,11 @@ export default function Page() {
                 <div className="relative bg-gradient-to-br from-[#B8860B] to-[#800080] p-1 rounded-2xl shadow-2xl">
                   <div className="bg-[#111111] rounded-2xl overflow-hidden">
                     <div className="aspect-[3/4] relative">
-                      <img 
-                        src="/images/Picture2.png" 
+                      <ImageWithFallback
+                        src="/images/Picture2.png"
                         alt="J'Soul - Artist at Rebel Echo Records"
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          console.error('Failed to load image:', e.currentTarget.src);
-                        }}
+                        fallbackSrc="/images/picture2.png"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-transparent to-transparent"></div>
                     </div>
@@ -201,7 +195,7 @@ export default function Page() {
           </div>
 
           {/* Press Release Section - REDUCED BOTTOM MARGIN */}
-          <div className="mb-8 lg:mb-12"> {/* Changed from mb-12 lg:mb-16 to mb-8 lg:mb-12 */}
+          <div className="mb-8 lg:mb-12">
             <div className="bg-[#111111] border border-[#B8860B]/20 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10">
               <div className="text-center mb-6 sm:mb-8">
                 <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-[#800080]/20 text-[#B8860B] font-semibold rounded-full text-xs sm:text-sm mb-3 sm:mb-4">
@@ -298,7 +292,7 @@ export default function Page() {
       </section>
 
       {/* Benefits Section - Judy Briggs Featured Tracks - REDUCED TOP PADDING */}
-      <section id="benefits" className="w-full py-8 sm:py-10 lg:py-12 bg-[#0A0A0A] scroll-mt-20"> {/* Changed from py-12 sm:py-16 lg:py-20 to py-8 sm:py-10 lg:py-12 */}
+      <section id="benefits" className="w-full py-8 sm:py-10 lg:py-12 bg-[#0A0A0A] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-8 sm:mb-10 lg:mb-12">
@@ -313,7 +307,7 @@ export default function Page() {
           {/* Judy Briggs Tracks Grid - Responsive columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4 sm:px-0">
             {tracks.map((track, index) => (
-              <AudioCard key={index} track={track} index={index} tracks={tracks} />
+              <AudioCard key={index} track={track} index={index} />
             ))}
           </div>
 
@@ -350,10 +344,67 @@ export default function Page() {
 }
 
 /* =========================================================
+   🖼️ IMAGE COMPONENT WITH FALLBACK FOR VERCEl
+========================================================= */
+
+function ImageWithFallback({ 
+  src, 
+  alt, 
+  className, 
+  fallbackSrc 
+}: { 
+  src: string; 
+  alt: string; 
+  className?: string;
+  fallbackSrc?: string;
+}) {
+  const [imgSrc, setImgSrc] = useState(src);
+  const [imageError, setImageError] = useState(false);
+
+  // Try multiple fallback paths if the main one fails
+  const tryAlternativePaths = () => {
+    // If we haven't tried the lowercase version yet
+    if (src.includes('/images/') && !src.includes('/images/picture')) {
+      const lowercaseVersion = src.toLowerCase();
+      setImgSrc(lowercaseVersion);
+    } 
+    // If we tried lowercase and it failed, try the provided fallback
+    else if (fallbackSrc && imgSrc !== fallbackSrc) {
+      setImgSrc(fallbackSrc);
+    }
+    // If all else fails, use a data URL placeholder
+    else {
+      setImageError(true);
+    }
+  };
+
+  if (imageError) {
+    // Return a colored div with a music note as ultimate fallback
+    return (
+      <div 
+        className={`${className} bg-gradient-to-br from-[#B8860B] to-[#800080] flex items-center justify-center`}
+        style={{ minWidth: '40px', minHeight: '40px' }}
+      >
+        <span className="text-white text-xl">🎵</span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      className={className}
+      onError={() => tryAlternativePaths()}
+    />
+  );
+}
+
+/* =========================================================
    🎵 PROFESSIONAL AUDIO CARD COMPONENT - FULLY RESPONSIVE
 ========================================================= */
 
-function AudioCard({ track, index, tracks }: { track: Track; index: number; tracks: Track[] }) {
+function AudioCard({ track, index }: { track: Track; index: number }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
@@ -363,7 +414,6 @@ function AudioCard({ track, index, tracks }: { track: Track; index: number; trac
   const [current, setCurrent] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
-  const [imageError, setImageError] = useState(false);
 
   const formatTime = (time: number): string => {
     if (!time || isNaN(time)) return "0:00";
@@ -393,15 +443,6 @@ function AudioCard({ track, index, tracks }: { track: Track; index: number; trac
   }, []);
 
   // Stop all other tracks when this one plays
-  const stopOtherTracks = () => {
-    // This function will be called from the parent component
-    // We'll use a custom event to communicate between audio cards
-    const event = new CustomEvent('stopOtherTracks', { 
-      detail: { currentTrackIndex: index } 
-    });
-    window.dispatchEvent(event);
-  };
-
   useEffect(() => {
     const handleStopOtherTracks = (e: CustomEvent) => {
       if (e.detail.currentTrackIndex !== index && isPlaying) {
@@ -429,7 +470,11 @@ function AudioCard({ track, index, tracks }: { track: Track; index: number; trac
       setIsPlaying(false);
     } else {
       // Stop all other tracks first
-      stopOtherTracks();
+      const event = new CustomEvent('stopOtherTracks', { 
+        detail: { currentTrackIndex: index } 
+      });
+      window.dispatchEvent(event);
+      
       audio.play();
       setIsPlaying(true);
     }
@@ -474,15 +519,6 @@ function AudioCard({ track, index, tracks }: { track: Track; index: number; trac
 
   const progressPercent = duration ? (current / duration) * 100 : 0;
 
-  // Fallback image for when the actual image fails to load
-  const getThumbnailSrc = () => {
-    if (imageError) {
-      // Return a placeholder with gradient based on index
-      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${index === 0 ? '800080' : 'B8860B'}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`;
-    }
-    return track.thumbnail;
-  };
-
   return (
     <div className="group relative">
       {/* Background gradient effect */}
@@ -507,11 +543,11 @@ function AudioCard({ track, index, tracks }: { track: Track; index: number; trac
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 group/image mx-auto xs:mx-0">
               <div className="absolute inset-0 bg-gradient-to-br from-[#B8860B] to-[#800080] rounded-xl blur-sm opacity-50"></div>
               <div className="relative w-full h-full rounded-xl overflow-hidden ring-2 ring-[#800080]/30">
-                <img
-                  src={getThumbnailSrc()}
+                <ImageWithFallback
+                  src={track.thumbnail}
                   alt={track.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
-                  onError={() => setImageError(true)}
+                  fallbackSrc={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${index === 0 ? '800080' : 'B8860B'}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#B8860B] flex items-center justify-center">
