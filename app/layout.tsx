@@ -68,8 +68,7 @@ export default function Page() {
   </div>
 </header>
 
-{/* Spacer to prevent content from hiding under the fixed header */}
-<div className="h-20 w-full"></div>
+
 
 {/* Add this spacer to prevent content from hiding under the fixed header */}
 <div className="h-20 w-full"></div>
