@@ -1,6 +1,22 @@
 'use client';
 import { useRef, useState, useEffect } from "react";
 
+// Add this style tag at the top of your component or in your global CSS
+const styles = `
+  .image-fallback {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #B8860B 0%, #800080 100%) !important;
+    color: white !important;
+    font-size: 24px !important;
+    position: relative !important;
+  }
+  .image-fallback::after {
+    content: "🎵";
+  }
+`;
+
 // Define types for track
 interface Track {
   title: string;
@@ -28,12 +44,17 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] overflow-x-hidden">
+      {/* Add the styles */}
+      <style>{styles}</style>
+      
       {/* Debug info - remove after fixing */}
       <div className="fixed bottom-4 right-4 z-50 bg-black text-white p-2 text-xs rounded opacity-50 hover:opacity-100">
         <div>Images should be in: /public/images/</div>
         <div>Files: picture6.png, picture7.png, Picture1.jpg, etc.</div>
+        <div className="text-green-400 mt-1">✓ Using simplified image loading</div>
       </div>
 
+      {/* Rest of your component remains exactly the same... */}
       {/* Header - Fixed positioning to ensure it's always visible */}
       <header className="fixed top-0 left-0 right-0 z-[100] w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -347,65 +368,42 @@ export default function Page() {
 }
 
 /* =========================================================
-   🖼️ IMAGE COMPONENT WITH MULTIPLE FALLBACK PATHS
+   🖼️ SIMPLIFIED IMAGE COMPONENT - NO FALLBACKS
 ========================================================= */
 
 function ImageWithFallback({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  const [imgSrc, setImgSrc] = useState(src);
-  const [failedPaths, setFailedPaths] = useState<string[]>([]);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  // List of possible paths to try (in order)
-  const getPossiblePaths = (originalPath: string): string[] => {
-    const paths = [originalPath];
-    
-    // If it's in /images/ folder, try different case variations
-    if (originalPath.includes('/images/')) {
-      const filename = originalPath.split('/').pop() || '';
-      const folder = '/images/';
-      
-      // Try all lowercase
-      paths.push(folder + filename.toLowerCase());
-      
-      // Try all uppercase (first letter capital)
-      const capitalized = filename.charAt(0).toUpperCase() + filename.slice(1).toLowerCase();
-      paths.push(folder + capitalized);
-      
-      // Try original case but with different extensions
-      if (filename.endsWith('.png')) {
-        paths.push(folder + filename.replace('.png', '.jpg'));
-        paths.push(folder + filename.replace('.png', '.jpeg'));
-      } else if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) {
-        paths.push(folder + filename.replace(/\.jpe?g$/, '.png'));
-      }
-    }
-    
-    return paths;
-  };
+  // Log the image path for debugging
+  useEffect(() => {
+    console.log(`Loading image: ${src}`);
+  }, [src]);
 
-  const possiblePaths = getPossiblePaths(src);
-
-  const handleError = () => {
-    const currentIndex = possiblePaths.indexOf(imgSrc);
-    const nextPath = possiblePaths[currentIndex + 1];
-    
-    if (nextPath) {
-      console.log(`Image failed: ${imgSrc}, trying: ${nextPath}`);
-      setImgSrc(nextPath);
-      setFailedPaths([...failedPaths, imgSrc]);
-    } else {
-      console.log(`All image paths failed for: ${src}`);
-      // Set to data URL with gradient as ultimate fallback
-      const color = src.includes('picture6') ? '800080' : 'B8860B';
-      setImgSrc(`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23${color}'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='%23FFFFFF' font-family='Arial'%3E🎵%3C/text%3E%3C/svg%3E`);
-    }
-  };
+  if (imageError) {
+    return (
+      <div 
+        className={`${className} flex items-center justify-center bg-gradient-to-br from-[#B8860B] to-[#800080] text-white`}
+        title={alt}
+      >
+        <span className="text-2xl">🎵</span>
+      </div>
+    );
+  }
 
   return (
     <img
-      src={imgSrc}
+      src={src}
       alt={alt}
       className={className}
-      onError={handleError}
+      onLoad={() => {
+        console.log(`Successfully loaded: ${src}`);
+        setImageLoaded(true);
+      }}
+      onError={(e) => {
+        console.error(`Failed to load image: ${src}`);
+        setImageError(true);
+      }}
     />
   );
 }
