@@ -54,54 +54,51 @@ export default function Page() {
         <div className="text-green-400 mt-1">✓ Using simplified image loading</div>
       </div>
 
-      {/* Rest of your component remains exactly the same... */}
-      {/* Header - Fixed positioning to ensure it's always visible */}
       {/* Header */}
-<header className="sticky top-0 z-50 w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div className="flex h-20 items-center justify-between">
-      {/* Logo and brand - responsive flex */}
-      <div className="flex items-center gap-4 min-w-0"> {/* Added min-w-0 to prevent overflow */}
-        {/* Logo image - Fixed size, won't scale down */}
-        <img 
-          src="/images/Picture1.jpg" 
-          alt="Rebel Echo Records Logo"
-          className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20" /* Added flex-shrink-0 */
-        />
-        {/* Brand text - Responsive with truncation */}
-        <div className="flex flex-col min-w-0"> {/* Added min-w-0 for text truncation */}
-          <span className="text-2xl font-bold text-white tracking-tight truncate"> {/* Added truncate */}
-            Rebel Echo Records
-          </span>
-          <span className="text-xs text-[#B8860B] uppercase tracking-wider hidden sm:block"> {/* Hide on very small screens */}
-            Home of Gospel-Core & Poetic Metal
-          </span>
+      <header className="sticky top-0 z-50 w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo and brand - responsive flex */}
+            <div className="flex items-center gap-4 min-w-0">
+              {/* Logo image - Fixed size, won't scale down */}
+              <img 
+                src="/images/Picture1.jpg" 
+                alt="Rebel Echo Records Logo"
+                className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
+              />
+              {/* Brand text - Responsive with truncation */}
+              <div className="flex flex-col min-w-0">
+                <span className="text-2xl font-bold text-white tracking-tight truncate">
+                  Rebel Echo Records
+                </span>
+                <span className="text-xs text-[#B8860B] uppercase tracking-wider hidden sm:block">
+                  Home of Gospel-Core & Poetic Metal
+                </span>
+              </div>
+            </div>
+            
+            {/* Navigation - Hidden on mobile, visible on desktop */}
+            <nav className="hidden md:flex gap-8">
+              <a href="#features" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
+                Albums
+              </a>
+              <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
+                Tracks
+              </a>
+              <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
+                Contact
+              </a>
+            </nav>
+            
+            {/* Optional: Mobile menu button */}
+            <button className="md:hidden p-2 text-gray-300 hover:text-[#B8860B]">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-      
-      {/* Navigation - Hidden on mobile, visible on desktop */}
-      <nav className="hidden md:flex gap-8">
-        <a href="#features" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]"> {/* Added whitespace-nowrap */}
-          Albums
-        </a>
-        <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
-          Tracks
-        </a>
-        <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
-          Contact
-        </a>
-      </nav>
-      
-      {/* Optional: Mobile menu button - Add if you want mobile navigation */}
-      <button className="md:hidden p-2 text-gray-300 hover:text-[#B8860B]">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</header>
-
+      </header>
 
       {/* Hero Section */}
       <section className="relative w-full overflow-hidden pt-6 pb-10 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20" style={{ backgroundColor: '#0A0A0A' }}>
@@ -319,7 +316,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Benefits Section - Judy Briggs Featured Tracks */}
+      {/* Benefits Section - Judy Briggs Featured Tracks - UPDATED */}
       <section id="benefits" className="w-full py-8 sm:py-10 lg:py-12 bg-[#0A0A0A] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -333,7 +330,7 @@ export default function Page() {
           </div>
 
           {/* Judy Briggs Tracks Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4 sm:px-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 max-w-5xl mx-auto px-4 sm:px-0">
             {tracks.map((track, index) => (
               <AudioCard key={index} track={track} index={index} />
             ))}
@@ -413,7 +410,7 @@ function ImageWithFallback({ src, alt, className }: { src: string; alt: string; 
 }
 
 /* =========================================================
-   🎵 PROFESSIONAL AUDIO CARD COMPONENT
+   🎵 PROFESSIONAL AUDIO CARD COMPONENT - UPDATED WITH ENHANCED THUMBNAILS
 ========================================================= */
 
 function AudioCard({ track, index }: { track: Track; index: number }) {
@@ -550,67 +547,81 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
         </div>
 
         <div className="p-4 sm:p-6 pt-1 sm:pt-2">
-          <div className="flex flex-col xs:flex-row items-start gap-4 sm:gap-5">
-            {/* Album Art with Play Button Overlay */}
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 group/image mx-auto xs:mx-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#B8860B] to-[#800080] rounded-xl blur-sm opacity-50"></div>
-              <div className="relative w-full h-full rounded-xl overflow-hidden ring-2 ring-[#800080]/30">
+          <div className="flex flex-col md:flex-row items-start gap-5 sm:gap-6">
+            {/* Album Art - Enhanced visibility with larger, more prominent thumbnail */}
+            <div className="relative w-full md:w-28 lg:w-32 flex-shrink-0 group/image">
+              {/* Multiple shadow layers for depth and prominence */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#B8860B] to-[#800080] rounded-xl blur-md opacity-60"></div>
+              <div className="absolute inset-0 bg-black rounded-xl blur-sm opacity-20 transform scale-95"></div>
+              
+              {/* Main image container with aspect ratio */}
+              <div className="relative aspect-square w-full rounded-xl overflow-hidden ring-2 ring-[#800080]/30 shadow-2xl shadow-[#800080]/20">
                 <ImageWithFallback
                   src={track.thumbnail}
                   alt={track.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#B8860B] flex items-center justify-center">
-                    <span className="text-black text-xs">▶</span>
+                
+                {/* Gradient overlay for better text contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Enhanced play button overlay - more visible */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                  <div className="w-12 h-12 rounded-full bg-[#B8860B] flex items-center justify-center transform scale-90 group-hover/image:scale-100 transition-transform duration-300 shadow-xl shadow-[#B8860B]/30">
+                    <span className="text-black text-lg ml-1">▶</span>
                   </div>
+                </div>
+                
+                {/* Track number badge - for visual interest */}
+                <div className="absolute top-2 left-2 bg-black/80 backdrop-blur-sm text-[#B8860B] text-xs font-bold px-2 py-1 rounded-full border border-[#B8860B]/30">
+                  #{index + 1}
                 </div>
               </div>
             </div>
 
-            {/* Track Info */}
-            <div className="flex-1 min-w-0 w-full xs:w-auto">
-              <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 truncate text-center xs:text-left">
+            {/* Track Info - Adjusted spacing for better balance */}
+            <div className="flex-1 min-w-0 w-full">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 truncate">
                 {track.title}
               </h3>
-              <p className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3 text-center xs:text-left">
+              <p className="text-sm sm:text-base text-[#B8860B] mb-3 font-medium">
                 {track.artist}
               </p>
 
-              {/* Progress Bar */}
+              {/* Progress Bar - Slightly thicker for better visibility */}
               <div
                 ref={progressRef}
                 onClick={handleSeek}
-                className="relative h-2 sm:h-1.5 bg-[#800080]/20 rounded-full overflow-hidden cursor-pointer group/progress mb-2 sm:mb-3"
+                className="relative h-2 sm:h-2.5 bg-[#800080]/20 rounded-full overflow-hidden cursor-pointer group/progress mb-3"
               >
                 <div
                   className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#B8860B] to-[#800080] rounded-full transition-all duration-100"
                   style={{ width: `${progressPercent}%` }}
                 />
                 <div 
-                  className="absolute top-1/2 -translate-y-1/2 w-2 h-2 sm:w-3 sm:h-3 bg-[#B8860B] rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg"
-                  style={{ left: `calc(${progressPercent}% - 4px)` }}
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-[#B8860B] rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg shadow-[#B8860B]/50"
+                  style={{ left: `calc(${progressPercent}% - 6px)` }}
                 />
               </div>
 
               {/* Time Display */}
-              <div className="flex justify-between text-[10px] sm:text-xs text-gray-500 mb-2 sm:mb-3">
+              <div className="flex justify-between text-xs sm:text-sm text-gray-500 mb-3">
                 <span>{formatTime(current)}</span>
                 <span>{formatTime(duration)}</span>
               </div>
 
-              {/* Controls */}
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center xs:justify-start">
+              {/* Controls - Enhanced layout with larger buttons */}
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={togglePlay}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#B8860B] to-[#800080] text-white flex items-center justify-center hover:shadow-lg hover:shadow-[#B8860B]/20 transition-all transform hover:scale-105 text-sm sm:text-base"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-[#B8860B] to-[#800080] text-white flex items-center justify-center hover:shadow-lg hover:shadow-[#B8860B]/30 transition-all transform hover:scale-105 text-base sm:text-lg"
                 >
                   {isPlaying ? "⏸" : "▶"}
                 </button>
 
                 <button
                   onClick={stopAudio}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#222222] text-gray-400 hover:text-white hover:bg-[#333333] transition-colors flex items-center justify-center text-sm sm:text-base"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#222222] text-gray-400 hover:text-white hover:bg-[#333333] transition-colors flex items-center justify-center text-base sm:text-lg"
                 >
                   ⏹
                 </button>
@@ -620,7 +631,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                     onClick={toggleMute}
                     onMouseEnter={() => setShowVolumeControl(true)}
                     onMouseLeave={() => setShowVolumeControl(false)}
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#222222] text-gray-400 hover:text-white hover:bg-[#333333] transition-colors flex items-center justify-center text-sm sm:text-base"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#222222] text-gray-400 hover:text-white hover:bg-[#333333] transition-colors flex items-center justify-center text-base sm:text-lg"
                   >
                     {isMuted ? "🔇" : volume > 0.7 ? "🔊" : volume > 0.3 ? "🔉" : "🔈"}
                   </button>
@@ -628,7 +639,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                   {/* Volume Slider Popup */}
                   {showVolumeControl && (
                     <div 
-                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-1.5 sm:p-2 bg-[#222222] rounded-lg border border-[#B8860B]/30 shadow-xl z-50"
+                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 sm:p-3 bg-[#222222] rounded-lg border border-[#B8860B]/30 shadow-xl z-50"
                       onMouseEnter={() => setShowVolumeControl(true)}
                       onMouseLeave={() => setShowVolumeControl(false)}
                     >
@@ -639,7 +650,7 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
                         step="0.01"
                         value={volume}
                         onChange={handleVolumeChange}
-                        className="w-16 sm:w-20 h-1 bg-[#800080]/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 sm:[&::-webkit-slider-thumb]:w-3 sm:[&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B8860B]"
+                        className="w-20 sm:w-24 h-1.5 bg-[#800080]/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 sm:[&::-webkit-slider-thumb]:w-4 sm:[&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B8860B] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-[#B8860B]/30"
                       />
                     </div>
                   )}
@@ -647,10 +658,11 @@ function AudioCard({ track, index }: { track: Track; index: number }) {
 
                 {/* Waveform indicator when playing */}
                 {isPlaying && (
-                  <div className="ml-auto hidden xs:flex items-center gap-0.5">
-                    <div className="w-0.5 h-2 sm:h-3 bg-[#B8860B] animate-pulse"></div>
-                    <div className="w-0.5 h-3 sm:h-4 bg-[#800080] animate-pulse delay-75"></div>
-                    <div className="w-0.5 h-1.5 sm:h-2 bg-[#B8860B] animate-pulse delay-150"></div>
+                  <div className="ml-auto hidden sm:flex items-center gap-0.5">
+                    <div className="w-0.5 h-3 sm:h-4 bg-[#B8860B] animate-pulse"></div>
+                    <div className="w-0.5 h-4 sm:h-5 bg-[#800080] animate-pulse delay-75"></div>
+                    <div className="w-0.5 h-3 sm:h-4 bg-[#B8860B] animate-pulse delay-150"></div>
+                    <div className="w-0.5 h-2 sm:h-3 bg-[#800080] animate-pulse delay-200"></div>
                   </div>
                 )}
               </div>
