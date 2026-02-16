@@ -31,39 +31,52 @@ export default function Page() {
       {/* Header - Fixed positioning to ensure it's always visible */}
       {/* Header */}
 {/* Header - Always visible when scrolling */}
+{/* Header - Always visible when scrolling */}
 <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div className="flex h-20 items-center justify-between">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 min-w-0">
         {/* Logo image */}
         <img 
           src="/images/Picture1.jpg" 
           alt="Rebel Echo Records Logo"
-          className="h-12 w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
+          className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20 flex-shrink-0"
         />
-        <div className="flex flex-col">
-          <span className="text-2xl font-bold text-white tracking-tight">
+        <div className="flex flex-col min-w-0">
+          <span className="text-lg sm:text-2xl font-bold text-white tracking-tight truncate">
             Rebel Echo Records
           </span>
-          <span className="text-xs text-[#B8860B] uppercase tracking-wider">
+          <span className="text-[10px] sm:text-xs text-[#B8860B] uppercase tracking-wider hidden sm:block truncate">
             Home of Gospel-Core & Poetic Metal
           </span>
         </div>
       </div>
-      <nav className="hidden gap-8 md:flex">
-        <a href="#features" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+      
+      {/* Navigation - Improved for mobile */}
+      <nav className="flex items-center gap-2 sm:gap-4 md:gap-6 ml-2 sm:ml-0 flex-shrink-0">
+        <a 
+          href="#features" 
+          className="text-xs sm:text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B] px-2 sm:px-0"
+        >
           Albums
         </a>
-        <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+        <a 
+          href="#benefits" 
+          className="text-xs sm:text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B] px-2 sm:px-0"
+        >
           Tracks
         </a>
-        <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+        <a 
+          href="#footer" 
+          className="text-xs sm:text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B] px-2 sm:px-0"
+        >
           Contact
         </a>
       </nav>
     </div>
   </div>
 </header>
+
 
 {/* Add this spacer to prevent content from hiding under the fixed header */}
 <div className="h-20 w-full"></div>
