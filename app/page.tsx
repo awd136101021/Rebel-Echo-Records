@@ -29,48 +29,46 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] overflow-x-hidden">
       {/* Header - Fixed positioning to ensure it's always visible */}
-      <header className="fixed top-0 left-0 right-0 z-[100] w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 sm:h-20 items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* Logo image */}
-              <img 
-                src="/images/Picture1.jpg" 
-                alt="Rebel Echo Records Logo"
-                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
-              />
-              <div className="flex flex-col">
-                <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
-                  Rebel Echo Records
-                </span>
-                <span className="hidden xs:inline text-[10px] sm:text-xs text-[#B8860B] uppercase tracking-wider">
-                  Home of Gospel-Core & Poetic Metal
-                </span>
-              </div>
-            </div>
-            <nav className="hidden md:flex gap-6 lg:gap-8">
-              <a href="#features" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Albums
-              </a>
-              <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Tracks
-              </a>
-              <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Contact
-              </a>
-            </nav>
-            {/* Mobile menu button */}
-            <button className="md:hidden text-white p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+      {/* Header */}
+{/* Header - Always visible when scrolling */}
+<header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="flex h-20 items-center justify-between">
+      <div className="flex items-center gap-4">
+        {/* Logo image */}
+        <img 
+          src="/images/Picture1.jpg" 
+          alt="Rebel Echo Records Logo"
+          className="h-12 w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
+        />
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold text-white tracking-tight">
+            Rebel Echo Records
+          </span>
+          <span className="text-xs text-[#B8860B] uppercase tracking-wider">
+            Home of Gospel-Core & Poetic Metal
+          </span>
         </div>
-      </header>
+      </div>
+      <nav className="hidden gap-8 md:flex">
+        <a href="#features" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+          Albums
+        </a>
+        <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+          Tracks
+        </a>
+        <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
+          Contact
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
 
+{/* Add this spacer to prevent content from hiding under the fixed header */}
+<div className="h-20 w-full"></div>
       {/* Spacer div to push content below fixed header */}
-      <div className="h-16 sm:h-20"></div>
+    
 
       {/* Hero Section */}
       <section className="relative w-full overflow-hidden pt-6 pb-10 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20" style={{ backgroundColor: '#0A0A0A' }}>
