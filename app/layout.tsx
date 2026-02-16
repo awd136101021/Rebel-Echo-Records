@@ -8,7 +8,6 @@ const _geistMono = Geist_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Rebel Echo Records | Home of Gospel-Core and Poetic Metal',
-  description: 'Created with v0',
   generator: 'v0.app',
   icons: {
     icon: '/images/favicon.ico',
