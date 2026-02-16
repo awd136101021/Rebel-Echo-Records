@@ -56,48 +56,52 @@ export default function Page() {
 
       {/* Rest of your component remains exactly the same... */}
       {/* Header - Fixed positioning to ensure it's always visible */}
-      <header className="fixed top-0 left-0 right-0 z-[100] w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 sm:h-20 items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* Logo image */}
-              <ImageWithFallback
-                src="/images/Picture1.jpg"
-                alt="Rebel Echo Records Logo"
-                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20"
-              />
-              <div className="flex flex-col">
-                <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
-                  Rebel Echo Records
-                </span>
-                <span className="hidden xs:inline text-[10px] sm:text-xs text-[#B8860B] uppercase tracking-wider">
-                  Home of Gospel-Core & Poetic Metal
-                </span>
-              </div>
-            </div>
-            <nav className="hidden md:flex gap-6 lg:gap-8">
-              <a href="#features" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Albums
-              </a>
-              <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Tracks
-              </a>
-              <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors hover:text-[#B8860B]">
-                Contact
-              </a>
-            </nav>
-            {/* Mobile menu button */}
-            <button className="md:hidden text-white p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+      {/* Header */}
+<header className="sticky top-0 z-50 w-full border-b border-[#B8860B]/20 bg-[#0A0A0A]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0A0A0A]/60">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="flex h-20 items-center justify-between">
+      {/* Logo and brand - responsive flex */}
+      <div className="flex items-center gap-4 min-w-0"> {/* Added min-w-0 to prevent overflow */}
+        {/* Logo image - Fixed size, won't scale down */}
+        <img 
+          src="/images/Picture1.jpg" 
+          alt="Rebel Echo Records Logo"
+          className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-[#B8860B]/50 shadow-lg shadow-[#B8860B]/20" /* Added flex-shrink-0 */
+        />
+        {/* Brand text - Responsive with truncation */}
+        <div className="flex flex-col min-w-0"> {/* Added min-w-0 for text truncation */}
+          <span className="text-2xl font-bold text-white tracking-tight truncate"> {/* Added truncate */}
+            Rebel Echo Records
+          </span>
+          <span className="text-xs text-[#B8860B] uppercase tracking-wider hidden sm:block"> {/* Hide on very small screens */}
+            Home of Gospel-Core & Poetic Metal
+          </span>
         </div>
-      </header>
+      </div>
+      
+      {/* Navigation - Hidden on mobile, visible on desktop */}
+      <nav className="hidden md:flex gap-8">
+        <a href="#features" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]"> {/* Added whitespace-nowrap */}
+          Albums
+        </a>
+        <a href="#benefits" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
+          Tracks
+        </a>
+        <a href="#footer" className="text-sm font-medium text-gray-300 transition-colors whitespace-nowrap hover:text-[#B8860B]">
+          Contact
+        </a>
+      </nav>
+      
+      {/* Optional: Mobile menu button - Add if you want mobile navigation */}
+      <button className="md:hidden p-2 text-gray-300 hover:text-[#B8860B]">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-      {/* Spacer div to push content below fixed header */}
-      <div className="h-16 sm:h-20"></div>
 
       {/* Hero Section */}
       <section className="relative w-full overflow-hidden pt-6 pb-10 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20" style={{ backgroundColor: '#0A0A0A' }}>
